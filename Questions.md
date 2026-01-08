@@ -39,3 +39,9 @@ GPUs are designed for high  throughput using massive parallelism.
 ----
 
 6. What is activity factor (α), and how does it relate to dynamic power?
+
+The activity factor, represents how frequently a signal toggles between 0 and 1. It affects the dynamic power, because the higher switching activity increases amount of capacitance being charged and discharged, which affects dynamic power. 
+
+7. How do SIMD/SIMT execution models affect power efficiency in GPUs?
+
+SIMD (Single Instruction Multiple Data) and SIMT (Single Instruction Multiple Threads) both implement parallelism, which improves power efficiency because more work is done per instruction fetch and per clock cycle, reducing control overhead and wasted energy. 
