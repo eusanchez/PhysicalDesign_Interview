@@ -115,3 +115,35 @@ create_supply_net VCCL -domain pd_aon -reuse
 create_supply_net GND -domain pd_aon -reuse
 ```
 
+5. ** Power State Table **
+It tells the voltage in a given stage, and whether the power domain is on or off. 
+
+Example:
+```
+add_port_state VDDH \
+-state {HighVoltage 1.1}
+add_port_state VDDL \
+-state {LowVoltage 0.9}
+add_port_state sw_aon_pgd_wrapper/sw_VCCH_gated \
+-state {HighVoltage 1.1} \
+-state {aonpgd_off off}
+add_port_state sw_pgd_wrapper/sw_VCCL_gated \
+-state {LowVoltage 0.9} \
+-state {pgd_off off}
+
+create_pst pwr_state_table \
+-supplies {VCCH VCCL VDDH_gated VDDL_gated}
+
+add_pst_state PRE_BOOT \
+-pst pwr_state_table \
+-state { HighVoltage LowVoltage aonpgd_off pgd_off}
+add_pst_state AONPGD_ON \
+-pst pwr_state_table \
+-state { HighVoltage LowVoltage HighVoltage pgd_off}
+add_pst_state PGD_ON \
+-pst pwr_state_table \
+-state { HighVoltage LowVoltage aonpgd_off LowVoltage}
+add_pst_state ALL_ON \
+-pst pwr_state_table \
+-state { HighVoltage LowVoltage HighVoltage LowVoltage}
+```
