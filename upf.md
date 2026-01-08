@@ -71,3 +71,47 @@ set_isolation_control isol_clamp1_sig_from_pgd \
 ```
 
 We need both ```set_isolation_control``` and ```set_isolation```. ```set_isolation``` defines what to isolate and how to clamp and ```set_isolation_control``` defines when it happens. 
+
+4. **Retention Strategy** 
+When the power domain is switched to OFF, the value of the flop is *SAVED* and later restored when power comes back ON. Preventing state loss. 
+
+Example:
+```
+set_retention pgd_retain \
+  -domain pd_gated \
+  -retention_power_net VCCL \
+  -retention_ground_net GND \
+  -elements {pgd_wrapper/regA}
+```
+
+5. ** Supply ports and supply nets **
+These ones define how power is physically delivered. 
+
+Supply port (external interface)
+These are top-level power pins, power enters the chip from outside.
+
+Example: 
+
+```
+create_supply_port VCCH -direction in -domain pd_top
+create_supply_port GND -direction in -domain pd_top
+```
+
+Supply net (internal distribution)
+
+```
+create_supply_net VCCL -domain pd_top
+create_supply_net VCCH -domain pd_top
+create_supply_net GND  -domain pd_top
+```
+
+These are internal rails that distribute power inside the chip.
+
+You can use ```-reuse``` for shared rails.
+
+Example using ```-reuse```:
+```
+create_supply_net VCCL -domain pd_aon -reuse
+create_supply_net GND -domain pd_aon -reuse
+```
+
