@@ -17,3 +17,25 @@ Leakage power can be reduced using:
     - Using HVT everywhere would increase delay.
 
 2. Explain the relationship between voltage, frequency, performance, and power. Why does lowering voltage have a stronger impact on power than lowering frequency?
+
+Voltage and frequency are coupled to performance and power. Frequency determines how many operations the circuit can perform per second, higher frequence = higher performance. 
+
+But, higher frequency also means higher supply voltage to meet timing constraints. 
+
+Lowering voltage has a higher impact because in the *Dynamic power equation* voltage appears squared.
+
+3. What is DVFS, and how would you use it to optimize power in a GPU?
+
+DVFS stands for Dynamic Voltage and Frequency Scaling is a technique that adjust GPU's voltage and frequency based on workload demand.
+
+DVFS lowers voltage and frquency during light workloads and increases them when higher perfomance is needed, creating optimum performance.
+
+4. Why are GPUs particularly more power-hungry than CPUs?
+
+GPUs are designed for high  throughput using massive parallelism.
+
+5. What parts of a GPU pipeline consume the most power during graphics workloads versus compute workloads?
+
+----
+
+6. What is activity factor (α), and how does it relate to dynamic power?
